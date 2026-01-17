@@ -341,7 +341,7 @@
                 </v-list-item>
               </template>
             </v-tooltip>
-            <v-divider v-show="user?.uid === build.authorUid"></v-divider>     
+            <v-divider v-show="user?.uid === build.authorUid"></v-divider>
             <v-tooltip>
               <span
                 :style="{
@@ -468,10 +468,19 @@
             <v-chip color="accent" class="mr-2 mb-2" v-if="build.season" label size="small"
               ><v-icon start icon="mdi-trophy"></v-icon>{{ build.season }}</v-chip
             >
-            <v-chip class="mr-2 mb-2" v-if="build.creatorId" variant="plain" size="small"
-              ><v-icon color="accent" start icon="mdi-youtube"></v-icon
-              >{{ build.creatorName }}</v-chip
+            <v-chip
+              class="mr-2 mb-2"
+              v-if="build.creatorId"
+              variant="plain"
+              size="small"
+              :href="'https://www.youtube.com/channel/' + build.creatorId"
+              target="_blank"
+              rel="noopener noreferrer"
+              clickable
             >
+              <v-icon color="accent" start icon="mdi-youtube"></v-icon>
+              {{ build.creatorName }}
+            </v-chip>
           </v-item-group>
           <v-item-group class="ml-4 hidden-sm-and-down">
             <v-chip class="mr-2 mb-2" color="accent" v-if="build.map" label size="small"

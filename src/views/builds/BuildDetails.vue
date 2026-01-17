@@ -38,166 +38,26 @@
         class="fill-height d-flex flex-nowrap pl-4 hidden-sm-and-up"
       >
         <v-col cols="12">
-          <!--xs-->
-          <v-item-group class="pt-2 hidden-sm-and-up">
-            <v-chip class="mr-2 mb-2" v-if="build.isDraft" label color="error" size="x-small"
-              ><v-icon start icon="mdi-pencil-circle"></v-icon>Draft</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="isNew(build.timeCreated.toDate())"
-              label
-              color="accent"
-              size="x-small"
-              ><v-icon start icon="mdi-alert-decagram"></v-icon>NEW</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="build.civ"
-              label
-              color="accent"
-              size="x-small"
-              :to="{ name: 'Builds', query: { civ: build.civ } }"
-              clickable
-            >
-              <v-icon start icon="mdi-earth"></v-icon>
-              {{ getCivById(build.civ)?.shortName }}
-            </v-chip>
-            <v-chip color="accent" class="mr-2 mb-2" v-if="build.season" label size="x-small"
-              ><v-icon start icon="mdi-trophy"></v-icon>{{ build.season }}</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="build.creatorId"
-              variant="plain"
-              size="x-small"
-              :href="'https://www.youtube.com/channel/' + build.creatorId"
-              target="_blank"
-              rel="noopener noreferrer"
-              clickable
-            >
-              <v-icon color="accent" start icon="mdi-youtube"></v-icon>
-              {{ build.creatorName }}
-            </v-chip>
-          </v-item-group>
-          <v-item-group class="hidden-sm-and-up">
-            <v-chip class="mr-2 mb-2" color="accent" v-if="build.map" label size="x-small"
-              ><v-icon start icon="mdi-map"></v-icon>{{ build.map }}</v-chip
-            >
-            <v-chip color="accent" class="mr-2 mb-2" v-if="build.strategy" label size="x-small"
-              ><v-icon start icon="mdi-strategy"></v-icon>{{ build.strategy }}</v-chip
-            >
-          </v-item-group>
-          <v-item-group class="hidden-sm-and-up">
-            <v-chip
-              class="mr-2 mb-2"
-              label
-              size="x-small"
-              color="accent"
-              :to="{
-                name: 'Builds',
-                query: { author: build.authorUid },
-              }"
-              ><v-icon start icon="mdi-account-edit"></v-icon>{{ build.author }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" label size="x-small" v-show="build.views">
-              <v-icon start icon="mdi-eye"></v-icon>{{ build.views }}</v-chip
-            >
-            <v-chip v-if="build.comments > 0" class="mr-2 mb-2" label size="x-small"
-              ><v-icon start icon="mdi-message"></v-icon>{{ build.comments }}</v-chip
-            >
-            <v-chip v-show="build.upvotes" class="mr-2 mb-2" label size="x-small">
-              <v-icon start icon="mdi-thumb-up"></v-icon>
-              {{ build.upvotes }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" v-if="build.timeCreated" label size="x-small"
-              ><v-icon start icon="mdi-clock-edit-outline"></v-icon
-              >{{ timeSince(build.timeCreated.toDate()) }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" v-if="build.timeCreated" label size="x-small"
-              ><v-icon start icon="mdi-update"></v-icon
-              >{{ timeSince(build.timeUpdated.toDate()) }}</v-chip
-            >
-          </v-item-group>
-          <!--sm and up-->
-          <v-item-group class="pt-2 hidden-xs hidden-md-and-up">
-            <v-chip class="mr-2 mb-2" v-if="build.isDraft" label color="error" size="small"
-              ><v-icon start icon="mdi-pencil-circle"></v-icon>Draft</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="isNew(build.timeCreated.toDate())"
-              label
-              color="accent"
-              size="small"
-              ><v-icon start icon="mdi-alert-decagram"></v-icon>NEW</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="build.civ"
-              label
-              color="accent"
-              size="small"
-              :to="{ name: 'Builds', query: { civ: build.civ } }"
-              clickable
-            >
-              <v-icon start icon="mdi-earth"></v-icon>{{ getCivById(build.civ)?.title }}
-            </v-chip>
-            <v-chip color="accent" class="mr-2 mb-2" v-if="build.season" label size="small"
-              ><v-icon start icon="mdi-trophy"></v-icon>{{ build.season }}</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="build.creatorId"
-              variant="plain"
-              size="small"
-              :href="'https://www.youtube.com/channel/' + build.creatorId"
-              target="_blank"
-              rel="noopener noreferrer"
-              clickable
-            >
-              <v-icon color="accent" start icon="mdi-youtube"></v-icon>
-              {{ build.creatorName }}
-            </v-chip>
-          </v-item-group>
-          <v-item-group class="hidden-xs hidden-md-and-up">
-            <v-chip class="mr-2 mb-2" color="accent" v-if="build.map" label size="small"
-              ><v-icon start icon="mdi-map"></v-icon>{{ build.map }}</v-chip
-            >
-            <v-chip color="accent" class="mr-2 mb-2" v-if="build.strategy" label size="small"
-              ><v-icon start icon="mdi-strategy"></v-icon>{{ build.strategy }}</v-chip
-            >
-          </v-item-group>
-          <v-item-group class="hidden-xs hidden-md-and-up">
-            <v-chip
-              class="mr-2 mb-2"
-              label
-              size="small"
-              :to="{
-                name: 'Builds',
-                query: { author: build.authorUid },
-              }"
-              ><v-icon start icon="mdi-account-edit"></v-icon>{{ build.author }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" label size="small" v-show="build.views">
-              <v-icon start icon="mdi-eye"></v-icon>{{ build.views }}</v-chip
-            >
-            <v-chip v-if="build.comments > 0" class="mr-2 mb-2" label size="small"
-              ><v-icon start icon="mdi-message"></v-icon>{{ build.comments }}</v-chip
-            >
-            <v-chip v-show="build.upvotes" class="mr-2 mb-2" label size="small">
-              <v-icon start icon="mdi-thumb-up"></v-icon>
-              {{ build.upvotes }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" v-if="build.timeCreated" label size="small"
-              ><v-icon start icon="mdi-clock-edit-outline"></v-icon
-              >{{ timeSince(build.timeCreated.toDate()) }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" v-if="build.timeCreated" label size="small"
-              ><v-icon start icon="mdi-update"></v-icon
-              >{{ timeSince(build.timeUpdated.toDate()) }}</v-chip
-            >
-          </v-item-group>
+          <BuildDetailChips
+            :build="build"
+            chipSize="x-small"
+            civLabel="short"
+            metaClass="pt-2 hidden-sm-and-up"
+            mapClass="hidden-sm-and-up"
+            statsClass="hidden-sm-and-up"
+            :showAuthorInMeta="false"
+            :showAuthorInStats="true"
+          ></BuildDetailChips>
+          <BuildDetailChips
+            :build="build"
+            chipSize="small"
+            civLabel="title"
+            metaClass="pt-2 hidden-xs hidden-md-and-up"
+            mapClass="hidden-xs hidden-md-and-up"
+            statsClass="hidden-xs hidden-md-and-up"
+            :showAuthorInMeta="false"
+            :showAuthorInStats="true"
+          ></BuildDetailChips>
         </v-col>
       </v-row>
       <v-card-actions class="hidden-md-and-up">
@@ -431,85 +291,16 @@
             {{ build.title }}
           </v-card-title>
           <v-spacer></v-spacer>
-          <v-item-group class="ml-4 pt-2 hidden-sm-and-down">
-            <v-chip class="mr-2 mb-2" v-if="build.isDraft" label color="error" size="small"
-              ><v-icon start icon="mdi-pencil-circle"></v-icon>Draft</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="isNew(build.timeCreated.toDate())"
-              label
-              color="accent"
-              size="small"
-              ><v-icon start icon="mdi-alert-decagram"></v-icon>NEW</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              label
-              size="small"
-              color="accent"
-              :to="{
-                name: 'Builds',
-                query: { author: build.authorUid },
-              }"
-              ><v-icon start icon="mdi-account-edit"></v-icon>{{ build.author }}</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="build.civ"
-              label
-              color="accent"
-              size="small"
-              :to="{ name: 'Builds', query: { civ: build.civ } }"
-              clickable
-            >
-              <v-icon start icon="mdi-earth"></v-icon>{{ getCivById(build.civ)?.title }}
-            </v-chip>
-            <v-chip color="accent" class="mr-2 mb-2" v-if="build.season" label size="small"
-              ><v-icon start icon="mdi-trophy"></v-icon>{{ build.season }}</v-chip
-            >
-            <v-chip
-              class="mr-2 mb-2"
-              v-if="build.creatorId"
-              variant="plain"
-              size="small"
-              :href="'https://www.youtube.com/channel/' + build.creatorId"
-              target="_blank"
-              rel="noopener noreferrer"
-              clickable
-            >
-              <v-icon color="accent" start icon="mdi-youtube"></v-icon>
-              {{ build.creatorName }}
-            </v-chip>
-          </v-item-group>
-          <v-item-group class="ml-4 hidden-sm-and-down">
-            <v-chip class="mr-2 mb-2" color="accent" v-if="build.map" label size="small"
-              ><v-icon start icon="mdi-map"></v-icon>{{ build.map }}</v-chip
-            >
-            <v-chip color="accent" class="mr-2 mb-2" v-if="build.strategy" label size="small"
-              ><v-icon start icon="mdi-strategy"></v-icon>{{ build.strategy }}</v-chip
-            >
-          </v-item-group>
-          <v-item-group class="ml-4 hidden-sm-and-down">
-            <v-chip class="mr-2 mb-2" label size="small" v-show="build.views">
-              <v-icon start icon="mdi-eye"></v-icon>{{ build.views }}</v-chip
-            >
-            <v-chip v-if="build.comments > 0" class="mr-2 mb-2" label size="small"
-              ><v-icon start icon="mdi-message"></v-icon>{{ build.comments }}</v-chip
-            >
-            <v-chip v-show="build.upvotes" class="mr-2 mb-2" label size="small">
-              <v-icon start icon="mdi-thumb-up"></v-icon>
-              {{ build.upvotes }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" v-if="build.timeCreated" label size="small"
-              ><v-icon start icon="mdi-clock-edit-outline"></v-icon
-              >{{ timeSince(build.timeCreated.toDate()) }}</v-chip
-            >
-            <v-chip class="mr-2 mb-2" v-if="build.timeCreated" label size="small"
-              ><v-icon start icon="mdi-update"></v-icon
-              >{{ timeSince(build.timeUpdated.toDate()) }}</v-chip
-            >
-          </v-item-group>
+          <BuildDetailChips
+            :build="build"
+            chipSize="small"
+            civLabel="title"
+            metaClass="ml-4 pt-2 hidden-sm-and-down"
+            mapClass="ml-4 hidden-sm-and-down"
+            statsClass="ml-4 hidden-sm-and-down"
+            :showAuthorInMeta="true"
+            :showAuthorInStats="false"
+          ></BuildDetailChips>
         </v-col>
         <v-row
           no-gutters
@@ -757,6 +548,7 @@ import Favorite from "@/components/Favorite.vue";
 import FocusMode from "@/components/builds/FocusMode.vue";
 import Vote from "@/components/Vote.vue";
 import BuildOrderEditor from "@/components/builds/BuildOrderEditor.vue";
+import BuildDetailChips from "@/components/builds/BuildDetailChips.vue";
 import Discussion from "@/components/Discussion.vue";
 import BuildNotFound from "@/components/notifications/BuildNotFound.vue";
 
@@ -774,8 +566,7 @@ import {
   updateBuild,
   error,
 } from "@/composables/data/buildService";
-import { civs as allCivs, getCivById } from "@/composables/filter/civDefaultProvider";
-import useTimeSince from "@/composables/useTimeSince";
+import { civs as allCivs } from "@/composables/filter/civDefaultProvider";
 import useExportOverlayFormat from "@/composables/converter/useExportOverlayFormat";
 import useCopyToClipboard from "@/composables/converter/useCopyToClipboard";
 import useDownload from "@/composables/converter/useDownload";
@@ -787,6 +578,7 @@ export default {
     Vote,
     Discussion,
     BuildOrderEditor,
+    BuildDetailChips,
     FocusMode,
     BuildNotFound,
   },
@@ -803,7 +595,6 @@ export default {
     const { convert } = useExportOverlayFormat();
     const { copyToClipboard, copyToClipboardSupported } = useCopyToClipboard();
     const { download } = useDownload();
-    const { timeSince, isNew } = useTimeSince();
     const userData = ref(null);
     const loading = ref(true);
     const focusMode = ref(false);
@@ -948,7 +739,6 @@ export default {
       civs,
       swipe,
       focusMode,
-      getCivById,
       deleteDialog,
       focusDialog,
       window,
@@ -958,8 +748,6 @@ export default {
       handleCopyOverlayFormat,
       handleDownloadOverlayFormat,
       handleOpenInOverlayTool,
-      timeSince,
-      isNew,
       clipboardIsSupported,
     };
   },
